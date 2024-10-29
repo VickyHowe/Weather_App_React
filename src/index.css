@@ -1,4 +1,4 @@
-:root {
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -65,4 +65,84 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+} */
+:root {
+  --background-color: white;
+  --text-color: black;
 }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-mode {
+  --background-color: black;
+  --text-color: white;
+}
+
+.light-mode {
+  --background-color: white;
+  --text-color: black;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+h1, h2, h5 {
+  margin: 0;
+}
+
+input {
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.light-mode, .dark-mode {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: white; /* Change based on your theme */
+  transition: color 0.3s;
+}
+
+button:hover {
+  color: #f0a500; /* Change color on hover */
+}
+
+button svg {
+  vertical-align: middle;
+}
+nav {
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for colors */
+}
+
+.bg-gray-900 {
+  background-color: #1a202c; /* Dark background */
+}
+
+.bg-white {
+  background-color: #ffffff; /* Light background */
+}
+
+.text-white {
+  color: #ffffff; /* Light text */
+}
+
+.text-gray-900 {
+  color: #1a202c; /* Dark text */
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
