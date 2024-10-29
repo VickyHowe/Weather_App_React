@@ -1,7 +1,11 @@
 import React from "react";
 import { formatToLocalTime, iconUrlFromCode } from "../utils/utils";
-
 const ForecastCard = ({ dailyData }) => {
+  console.log(dailyData); // Log the data to see its structure
+  if (!dailyData || !dailyData.temp || !dailyData.weather || dailyData.weather.length === 0) {
+    return null; // or return a placeholder component
+  }
+
   const { dt, temp, weather } = dailyData;
 
   return (

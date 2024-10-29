@@ -1,13 +1,16 @@
 export const groupByDay = (forecastData) => {
   const grouped = {};
-  
-  forecastData.forEach(item => {
-    const date = new Date(item.dt * 1000).toLocaleDateString(); // Convert timestamp to date string
+
+  forecastData.forEach((item) => {
+    const date = new Date(item.dt * 1000).toLocaleDateString();
     if (!grouped[date]) {
-      grouped[date] = [];
+      grouped[date] = {
+        dt: item.dt,
+        temp: item.main.temp,
+        weather: item.weather[0].description,
+      };
     }
-    grouped[date].push(item);
   });
 
-  return grouped;
+  return Object.values(grouped).slice(0, 5);
 };

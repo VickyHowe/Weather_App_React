@@ -5,7 +5,7 @@ const WeatherDisplay = ({ weatherData, metric }) => {
     <>
       <h2>Current Weather</h2>
       <p>
-        Temperature: {weatherData.main.temp}°{metric ? "C" : "F"}
+        Temperature: {weatherData.main.temp}°{metric === 'metric' ? 'C' : 'F'}
       </p>
       <p>Weather: {weatherData.weather[0].description}</p>
       <p>Humidity: {weatherData.main.humidity}%</p>

@@ -1,60 +1,44 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState } from 'react';
 
 const useWeather = (API_KEY) => {
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
 
   const fetchWeatherAndForecast = async (cityname, units) => {
-    if (!cityname) {
-      setError("Please enter a city name.");
-      return;
-    }
-
-    setLoading(true); // Start loading
+    setLoading(true);
+    setError(null);
 
     try {
-      const weatherData = await fetchWeatherData(cityname, API_KEY, units);
-      const forecastData = await fetchForecastData(cityname, API_KEY, units);
+      // Fetch coordinates using the Geocoding API with units
+      const geoResponse = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${API_KEY}&units=${units}`);
+      const geoData = await geoResponse.json();
 
-      setWeatherData(weatherData);
+      if (!geoResponse.ok) {
+        throw new Error(geoData.message || 'Failed to fetch coordinates');
+      }
+
+      const { lat, lon } = geoData.coord;
+
+      // Fetch weather data using the coordinates, already includes units
+      const forecastResponse = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${units}`);
+      const forecastData = await forecastResponse.json();
+
+      if (!forecastResponse.ok) {
+        throw new Error(forecastData.message || 'Failed to fetch forecast data');
+      }
+
+      setWeatherData(geoData);
       setForecastData(forecastData);
-      setError(""); // Clear error on successful fetch
     } catch (error) {
-      handleFetchError(error);
+      setError(error.message);
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
 
-  const fetchWeatherData = async (city, apiKey, units) => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
-    const response = await axios.get(url);
-    return response.data;
-  };
-
-  const fetchForecastData = async (city, apiKey, units) => {
-    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=${units}`;
-    const response = await axios.get(url);
-    return response.data.list; // Return the forecast entries directly
-  };
-
-  const handleFetchError = (error) => {
-    console.error(error);
-    setError("Could not fetch weather data. Please check the city name.");
-    setWeatherData(null);
-    setForecastData(null);
-  };
-
-  return {
-    weatherData,
-    forecastData,
-    loading,
-    error,
-    fetchWeatherAndForecast,
-  };
+  return { weatherData, forecastData, loading, error, fetchWeatherAndForecast };
 };
 
 export default useWeather;
