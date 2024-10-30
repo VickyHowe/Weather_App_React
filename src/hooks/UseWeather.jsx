@@ -15,6 +15,9 @@ const useWeather = (API_KEY) => {
       const geoResponse = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${API_KEY}&units=${units}`);
       const geoData = await geoResponse.json();
 
+      console.log("Geocoding API Response:", geoData); // Log the geocoding response
+
+
       if (!geoResponse.ok) {
         throw new Error(geoData.message || 'Failed to fetch coordinates');
       }
@@ -25,12 +28,18 @@ const useWeather = (API_KEY) => {
       const forecastResponse = await fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${units}`);
       const forecastData = await forecastResponse.json();
 
+      console.log("Forecast API Response:", forecastData); // Log the forecast response
+
       if (!forecastResponse.ok) {
         throw new Error(forecastData.message || 'Failed to fetch forecast data');
       }
 
       setWeatherData(geoData);
       setForecastData(forecastData);
+
+          // Log the entire forecast data
+    console.log("Complete Forecast Data:", forecastData);
+    
     } catch (error) {
       setError(error.message);
     } finally {

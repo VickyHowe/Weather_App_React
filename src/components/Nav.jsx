@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-scroll";
-import { WiCloudy, WiRain, WiSnow, WiDaySunny, WiRainMix, WiThunderstorm, WiFog } from 'react-icons/wi';
-import { FaMoon, FaSun } from 'react-icons/fa';
+import { FaMoon, FaSun } from "react-icons/fa";
+import WeatherIcon from "./WeatherIcon";
 
 const NavLink = ({ to, children }) => (
   <Link spy={true} smooth={true} to={to}>
@@ -11,139 +11,123 @@ const NavLink = ({ to, children }) => (
   </Link>
 );
 
-const Nav = ({ 
-  cityname, 
-  setCityname, 
-  fetchWeatherAndForecast, 
-  loading, 
-  currentTemperature, 
-  weatherCondition, 
-  toggleTheme, 
-  metric, 
-  darkMode, 
-  setMetric 
+const Nav = ({
+  cityname,
+  setCityname,
+  fetchWeatherAndForecast,
+  loading,
+  currentTemperature,
+  weatherCondition,
+  currentHumidity,
+  toggleTheme,
+  metric,
+  darkMode,
+  setMetric,
+  weatherData, // Add weatherData to props
 }) => {
-
   const handleGetWeather = (e) => {
-    e.preventDefault(); 
-    fetchWeatherAndForecast(cityname, metric ? "metric" : "imperial"); 
-  };
-
-  const getWeatherIcon = (condition) => {
-    console.log("Weather Condition:", condition);
-    const normalizedCondition = condition ? condition.toLowerCase() : "";
-
-    let icon;
-    let description;
-
-    switch (normalizedCondition) {
-      case "clear sky":
-        icon = <WiDaySunny size={50} />;
-        description = "Clear Sky";
-        break;
-      case "few clouds":
-        icon = <WiCloudy size={50} />;
-        description = "Few Clouds";
-        break;
-      case "overcast clouds":
-        icon = <WiCloudy size={50} />;
-        description = "Overcast Clouds";
-        break;
-      case "drizzle":
-        icon = <WiRainMix size={50} />;
-        description = "Drizzle";
-        break;
-      case "rain":
-      case "light rain":
-      case "moderate rain":
-      case "heavy rain":
-        icon = <WiRain size={50} />;
-        description = "Rainy";
-        break;
-      case "shower rain":
-        icon = <WiRain size={50} />;
-        description = "Shower Rain";
-        break;
-      case "thunderstorm":
-        icon = <WiThunderstorm size={50} />;
-        description = "Thunderstorm";
-        break;
-      case "light snow":
-      case "snow":
-        icon = <WiSnow size={50} />;
-        description = "Snow";
-        break;
-      case "mist":
-      case "fog":
-      case "haze":
-        icon = <WiFog size={50} />;
-        description = "Mist/Fog";
-        break;
-      default:
-        icon = <WiCloudy size={50} />;
-        description = "Unknown Weather Condition";
-        break;
-    }
-
-    return (
-      <div className="flex flex-col items-center">
-        {icon}
-        <span className="text-sm">{description}</span>
-      </div>
-    );
+    e.preventDefault();
+    fetchWeatherAndForecast(cityname, metric ? "metric" : "imperial");
   };
 
   return (
-    <nav className={`h-16 flex justify-between items-center z-50 lg:py-5 px-20 py-4 pb-6 ${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
-      <div className="flex items-center flex-1">
+    <nav
+      className={`fixed top-0 left-0 right-0 flex flex-col lg:flex-row justify-between items-start z-50 py-4 ${
+        darkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900 px-10"
+      }`}
+    >
+      <div className="flex items-start flex-1 mt-10">
         {/* City Search Bar */}
-        <form onSubmit={handleGetWeather} className="flex items-center">
-        <input
-          type="text"
-          value={cityname}
-          onChange={(e) => setCityname(e.target.value)}
-          placeholder="Enter City"
-          className="border rounded px-2 py-1 mr-2"
-          disabled={loading} // Disable input when loading
-        />
-          <button type="submit" disabled={loading} className="bg-slate-500 text-white rounded px-3 py-1">
+        <form
+          onSubmit={handleGetWeather}
+          className="flex items-start flex-1 ml-10 "
+        >
+          <input
+            type="text"
+            value={cityname}
+            onChange={(e) => setCityname(e.target.value)}
+            placeholder="Enter City"
+            className={`border rounded px-2 py-1 mr-2  ${
+              darkMode
+                ? "bg-gray-700 text-white placeholder-gray-400"
+                : "bg-white text-gray-900 placeholder-gray-600"
+            }`}
+            style={{ maxWidth: "200px", flexGrow: 1 }}
+            disabled={loading}
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-slate-500 text-white rounded px-3 py-1 min-w-[120px] h-10"
+          >
             {loading ? "Loading..." : "Get Weather"}
           </button>
         </form>
+      </div>
 
-        {/* City Name and Weather Info */}
+      {/* City Name and Weather Info */}
+      <div className="flex margin-left flex-1 text-center items-start">
+        <h1 className="font-bold text-3xl text-left ">
+          Current Conditions
+        </h1>
         {cityname && (
-          <span className="text-3xl font-bold flex items-center ml-4">
-            <span className="mr-2">{cityname}</span >
-            {getWeatherIcon(weatherCondition)}
-            <span className="ml-2">
-              {currentTemperature !== null ? `${currentTemperature}°${metric ? 'C' : 'F'}` : "Loading..."}
+          <span className="text-xl lg:text-2xl font-bold flex items-left justify-left text-left ml-5">
+            <span className="mr-2 items-start">
+              {cityname}
+
+              {/* Display latitude and longitude */}
+              {weatherData && (
+                <div className="text-sm mt-7 items-start ">
+                  Latitude: {weatherData.coord.lat}°, Longitude:{" "}
+                  {weatherData.coord.lon}°
+                </div>
+              )}
+            </span>
+            <WeatherIcon condition={weatherCondition} />
+
+            {/* Temperature Display */}
+            <span className="ml-8 mr-5 items-start">
+              {currentTemperature !== null
+                ? `${currentTemperature}°${metric ? "C" : "F"}`
+                : "Loading..."}
+
+              {/* Humidity Display */}
+              <div className="align-center text-sm mt-7">
+                {currentHumidity !== null
+                  ? `Humidity: ${currentHumidity}%`
+                  : "Loading..."}
+              </div>
             </span>
           </span>
         )}
       </div>
 
-      <div className="flex items-center space-x-4">
-        {/* Theme Toggle Button */}
-        <button 
-          onClick={toggleTheme} 
-          className="bg-transparent border border-white rounded px-2 py-1 hover:bg-white hover:text-black transition"
-        >
-          <div className="flex items-center">
-            {darkMode ? <FaSun size={24} /> : <FaMoon size={24} />}
-            <span className="ml-2">{darkMode ? "Light Mode" : "Dark Mode"}</span>
-          </div>
-        </button>
-
+      <div className="flex flex-1 items-start space-x-4 mt-5 lg:mt-0">
         {/* Units Dropdown Selector */}
-        <select 
-          value={metric ? 'C' : 'F'} 
-          onChange={(e) => setMetric(e.target.value === 'C')}
-          className="bg-transparent border border-white rounded px-2 py-1 hover:bg-white hover:text-black transition"
+        <select
+          value={metric ? "C" : "F"}
+          onChange={(e) => setMetric(e.target.value === "C")}
+          className={`ml-20 mt-9 bg-transparent rounded px-2 py-1 hover:bg-white hover:text-black transition ${
+            darkMode ? "border-white" : "border-black"
+          } border`}
         >
           <option value="C"> °C</option>
           <option value="F">°F</option>
         </select>
+        {/* Theme Toggle Button */}
+        <button
+          onClick={toggleTheme}
+          className={`mt-8 border rounded px-20 py-1 transition ${
+          darkMode ? "border-white" : "border-black"
+          } hover:bg-white hover:text-black`}
+        >
+          <div className="flex items-center">
+            {darkMode ? <FaSun size={24} /> : <FaMoon size={24} />}
+            <span className="ml-2">
+              {darkMode ? "Light Mode" : "Dark Mode"}
+            </span>
+          </div>
+        </button>
       </div>
     </nav>
   );

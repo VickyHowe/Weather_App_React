@@ -1,16 +1,16 @@
-export const groupByDay = (forecastData) => {
-  const grouped = {};
+export const groupByDay = (forecastList) => {
+  return forecastList.reduce((acc, entry) => {
+    // Extract the date from the entry's timestamp
+    const date = new Date(entry.dt * 1000).toISOString().split('T')[0]; // Converts to YYYY-MM-DD format
 
-  forecastData.forEach((item) => {
-    const date = new Date(item.dt * 1000).toLocaleDateString();
-    if (!grouped[date]) {
-      grouped[date] = {
-        dt: item.dt,
-        temp: item.main.temp,
-        weather: item.weather[0].description,
-      };
+    // Initialize the array for this date if it doesn't exist
+    if (!acc[date]) {
+      acc[date] = [];
     }
-  });
 
-  return Object.values(grouped).slice(0, 5);
+    // Push the current entry into the array for this date
+    acc[date].push(entry);
+    
+    return acc;
+  }, {});
 };

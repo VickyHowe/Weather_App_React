@@ -1,6 +1,17 @@
 # In development
 This app is currently in development
 
+To Do:
+App Weathermap
+Refind 5-day Forecast
+    - highs, Lows
+    - Precipitation
+    - Wind
+    - Humidity
+Add graph displaying temp over 5days with wind and precip
+
+
+
 References
 
 API
@@ -11,6 +22,7 @@ Challenges
 - API key in environment requiring VITE in name
 
 - The useeffect update for toggling units from F to C
+- passing data correctly to calculate dailie averages
 
 
 Styling
@@ -19,3 +31,4 @@ https://www.youtube.com/watch?v=siIZfsZxSIs
 
 
 https://michalsnik.github.io/aos/
+

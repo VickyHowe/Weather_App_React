@@ -1,31 +1,25 @@
-import React from "react";
-import { formatToLocalTime, iconUrlFromCode } from "../utils/utils";
-const ForecastCard = ({ dailyData }) => {
-  console.log(dailyData); // Log the data to see its structure
-  if (!dailyData || !dailyData.temp || !dailyData.weather || dailyData.weather.length === 0) {
-    return null; // or return a placeholder component
-  }
-
-  const { dt, temp, weather } = dailyData;
-
+const DailyForecast = ({ dailyData, metric }) => {
   return (
-    <div className="flex flex-col items-center justify-center m-2 rounded-md text-center shadow-md bg-white dark:bg-gray-800">
-      <h2 className="text-lg font-semibold mb-1">
-        {formatToLocalTime(dt, "short")}
-      </h2>
-      <img
-        src={iconUrlFromCode(weather[0].icon)}
-        alt={weather[0].description}
-        className="w-12 h-12 mb-2"
-      />
-      <p className="text-gray-600 dark:text-gray-300">
-        {temp.day.toFixed(0)}°
-      </p>
-      <p className="text-gray-500 dark:text-gray-400">
-        {weather[0].description}
-      </p>
+    <div>
+      <h2>5-Day Forecast</h2>
+      <div className="forecast-container"> {/* Add a container for Flexbox */}
+        {Object.entries(dailyData).map(([date, entries]) => {
+          const tempSum = entries.reduce((sum, entry) => sum + entry.main.temp, 0);
+          const avgTemp = (tempSum / entries.length).toFixed(2);
+          const weatherDescription = entries[0].weather[0].description;
+
+          return (
+            <ForecastCard 
+              key={date} 
+              date={date} 
+              temperature={avgTemp} 
+              weatherCondition={weatherDescription} 
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
 
-export default ForecastCard;
+export default DailyForecast;
