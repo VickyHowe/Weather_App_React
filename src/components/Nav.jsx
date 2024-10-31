@@ -5,7 +5,7 @@ import WeatherIcon from "./WeatherIcon";
 
 const NavLink = ({ to, children }) => (
   <Link spy={true} smooth={true} to={to}>
-    <li className="hover:text-fuchsia-600 transition border-b-2 border-slate-900 hover:border-fuchsia-600 cursor-pointer">
+    <li className="transition border-b-2 border-slate-900 cursor-pointer">
       {children}
     </li>
   </Link>
@@ -23,17 +23,17 @@ const Nav = ({
   metric,
   darkMode,
   setMetric,
-  weatherData, // Add weatherData to props
+  weatherData,
 }) => {
   const handleGetWeather = (e) => {
     e.preventDefault();
-    fetchWeatherAndForecast(cityname, metric ? "metric" : "imperial");
+    fetchWeatherAndForecast(cityname, metric);
   };
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 flex flex-col lg:flex-row justify-between items-start z-50 py-4 ${
-        darkMode ? "bg-gray-700 text-white" : "bg-white text-gray-900 px-10"
+        darkMode ? "text-white" : "text-gray-900 px-10"
       }`}
     >
       <div className="flex items-start flex-1 mt-10">
@@ -67,28 +67,26 @@ const Nav = ({
 
       {/* City Name and Weather Info */}
       <div className="flex margin-left flex-1 text-center items-start">
-        <h1 className="font-bold text-3xl text-left ">
-          Current Conditions
-        </h1>
         {cityname && (
-          <span className="text-xl lg:text-2xl font-bold flex items-left justify-left text-left ml-5">
-            <span className="mr-2 items-start">
+          <span className="lg:text-2xl font-bold flex items-center justify-left text-center ml-1">
+            <span className="mr-1 mt-3 items-start">
               {cityname}
 
               {/* Display latitude and longitude */}
               {weatherData && (
-                <div className="text-sm mt-7 items-start ">
-                  Latitude: {weatherData.coord.lat}°, Longitude:{" "}
-                  {weatherData.coord.lon}°
+                <div className="text-sm mt-7 items-start text-left ">
+                  Lat: {weatherData.coord.lat}°, Long: {weatherData.coord.lon}°
                 </div>
               )}
             </span>
-            <WeatherIcon condition={weatherCondition} />
+            <div className="ml-5">
+              <WeatherIcon condition={weatherCondition} />
+            </div>
 
             {/* Temperature Display */}
-            <span className="ml-8 mr-5 items-start">
+            <span className="ml-8 mr-5 mt-3 items-start">
               {currentTemperature !== null
-                ? `${currentTemperature}°${metric ? "C" : "F"}`
+                ? `${currentTemperature}°${metric === "metric" ? "C" : "F"}`
                 : "Loading..."}
 
               {/* Humidity Display */}
@@ -105,20 +103,21 @@ const Nav = ({
       <div className="flex flex-1 items-start space-x-4 mt-5 lg:mt-0">
         {/* Units Dropdown Selector */}
         <select
-          value={metric ? "C" : "F"}
-          onChange={(e) => setMetric(e.target.value === "C")}
+          value={metric}
+          onChange={(e) => setMetric(e.target.value)} // Directly set the metric value
           className={`ml-20 mt-9 bg-transparent rounded px-2 py-1 hover:bg-white hover:text-black transition ${
             darkMode ? "border-white" : "border-black"
           } border`}
         >
-          <option value="C"> °C</option>
-          <option value="F">°F</option>
+          <option value="metric">°C</option>
+          <option value="imperial">°F</option>
         </select>
+
         {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
           className={`mt-8 border rounded px-20 py-1 transition ${
-          darkMode ? "border-white" : "border-black"
+            darkMode ? "border-white" : "border-black"
           } hover:bg-white hover:text-black`}
         >
           <div className="flex items-center">

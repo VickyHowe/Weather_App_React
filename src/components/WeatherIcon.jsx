@@ -1,7 +1,15 @@
-import React from 'react';
-import { WiCloudy, WiRain, WiSnow, WiDaySunny, WiRainMix, WiThunderstorm, WiFog } from 'react-icons/wi';
+import React from "react";
+import {
+  WiCloudy,
+  WiRain,
+  WiSnow,
+  WiDaySunny,
+  WiRainMix,
+  WiThunderstorm,
+  WiFog,
+} from "react-icons/wi";
 
-const WeatherIcon = ({ condition }) => {
+const WeatherIcon = ({ condition, size = 70 }) => {
   const normalizedCondition = condition ? condition.toLowerCase() : "";
 
   let icon;
@@ -9,17 +17,18 @@ const WeatherIcon = ({ condition }) => {
 
   switch (normalizedCondition) {
     case "clear sky":
-      icon = <WiDaySunny size={70} />;
+      icon = <WiDaySunny size={size} />;
       description = "Clear Sky";
       break;
     case "broken clouds":
+    case "scattered clouds":
     case "few clouds":
     case "overcast clouds":
-      icon = <WiCloudy size={70} />;
-      description = "Overcast Clouds";
+      icon = <WiCloudy size={size} />;
+      description = "Cloudy";
       break;
     case "drizzle":
-      icon = <WiRainMix size={70} />;
+      icon = <WiRainMix size={size} />;
       description = "Drizzle";
       break;
     case "rain":
@@ -27,26 +36,26 @@ const WeatherIcon = ({ condition }) => {
     case "moderate rain":
     case "heavy rain":
     case "shower rain":
-      icon = <WiRain size={70} />;
+      icon = <WiRain size={size} />;
       description = "Rainy";
       break;
     case "thunderstorm":
-      icon = <WiThunderstorm size={70} />;
+      icon = <WiThunderstorm size={size} />;
       description = "Thunderstorm";
       break;
     case "light snow":
     case "snow":
-      icon = <WiSnow size={70} />;
+      icon = <WiSnow size={size} />;
       description = "Snow";
       break;
     case "mist":
     case "fog":
     case "haze":
-      icon = <WiFog size={70} />;
+      icon = <WiFog size={size} />;
       description = "Mist/Fog";
       break;
     default:
-      icon = <WiCloudy size={70} />;
+      icon = <WiCloudy size={size} />;
       description = "Unknown Weather Condition";
       break;
   }

@@ -11,6 +11,9 @@ Refind 5-day Forecast
 Add graph displaying temp over 5days with wind and precip
 
 
+.env
+VITE_WEATHER_API_KEY=YOURKEYHERE
+
 
 References
 
@@ -32,3 +35,5 @@ https://www.youtube.com/watch?v=siIZfsZxSIs
 
 https://michalsnik.github.io/aos/
 
+Images
+https://www.pexels.com

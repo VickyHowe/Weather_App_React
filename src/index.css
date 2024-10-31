@@ -1,6 +1,8 @@
 :root {
   --background-color: white;
   --text-color: black;
+  --forecast-card-background: #5a7fa1; 
+  --forecast-card-border: #ccc;
 }
 
 body {
@@ -18,15 +20,20 @@ body {
   --background-color: black;
   --text-color: white;
   --background-image: url('./assets/pexels-d-ng-nhan-324384-1529881.jpg');
-
+  --forecast-card-background: #2c3e50; 
+  --forecast-card-border: #34495e; 
+  --border:#ccc
 }
 
 .light-mode {
   --background-color: white;
   --text-color: black;
-
   --background-image: url('./assets/pexels-couleur-29008111.jpg');
+  --forecast-card-background: #5a7fa1;
+  --forecast-card-border: black; 
+  --border:black;
 }
+
 
 #root {
   max-width: 1280px;
@@ -46,60 +53,60 @@ input {
 
 .light-mode, .dark-mode {
   transition: background-color 0.3s ease, color 0.3s ease;
+
 }
 
 button {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  color: white; /* Change based on your theme */
+  color: white; 
   transition: color 0.3s;
 }
 
 button:hover {
-  color: #f0a500; /* Change color on hover */
+  color: #f0a500; 
 }
 
 button svg {
   vertical-align: middle;
 }
+
 nav {
-  transition: background-color 0.3s, color 0.3s; /* Smooth transition for colors */
+  transition: background-color 0.3s, color 0.3s; 
 }
 
-
-.bg-gray-900 {
-  background-color: #1a202c; /* Dark background */
-}
-
-.bg-white {
-  background-color: #ffffff; /* Light background */
-}
-
-.text-white {
-  color: #ffffff; /* Light text */
-}
-
-.text-gray-900 {
-  color: #1a202c; /* Dark text */
-}
 
 .forecast-container {
-  display: flex;               /* Use Flexbox */
-  justify-content: space-between; /* Distribute space between cards */
-  overflow-x: auto;           /* Allow horizontal scrolling if needed */
-  padding: 10px;              /* Optional padding */
+  display: flex;               
+  flex-wrap: wrap;          
+  justify-content: space-between; 
+  padding: 5px;             
 }
 
 .forecast-card {
-  flex: 1;                    /* Allow cards to grow equally */
-  margin: 0 10px;            /* Add margin between cards */
-  min-width: 150px;          /* Set a minimum width for the cards */
-  background: #5a7fa1;       /* Optional background color */
-  border-radius: 8px;        /* Optional rounded corners */
-  padding: 20px;             /* Optional padding inside the card */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  flex: 0 0 calc(30% - 10px);
+  margin: 5px;
+  margin-bottom: 20px;
+  background: var(--forecast-card-background); 
+  border: 1px solid var(--forecast-card-border); 
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+@media (max-width: 768px) {
+  .forecast-card {
+    flex: 0 0 calc(50% - 10px);
+  }
+}
+
+@media (max-width: 480px) {
+  .forecast-card {
+    flex: 0 0 calc(100% - 10px);
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
