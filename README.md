@@ -2,12 +2,9 @@
 This app is currently in development
 
 To Do:
-App Weathermap
 Refind 5-day Forecast
-    - highs, Lows
-    - Precipitation
     - Wind
-    - Humidity
+- fix navbar flex
 Add graph displaying temp over 5days with wind and precip
 
 
@@ -37,3 +34,8 @@ https://michalsnik.github.io/aos/
 
 Images
 https://www.pexels.com
+
+Map
+https://react-leaflet.js.org/
+
+https://openweathermap.org/api/weathermaps

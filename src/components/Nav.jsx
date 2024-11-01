@@ -32,7 +32,7 @@ const Nav = ({
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 flex flex-col lg:flex-row justify-between items-start z-50 py-4 ${
+      className={`absolute top-0 left-0 right-0 flex flex-col lg:flex-row justify-between items-start z-50  ${
         darkMode ? "text-white" : "text-gray-900 px-10"
       }`}
     >
@@ -104,7 +104,7 @@ const Nav = ({
         {/* Units Dropdown Selector */}
         <select
           value={metric}
-          onChange={(e) => setMetric(e.target.value)} // Directly set the metric value
+          onChange={(e) => setMetric(e.target.value)} 
           className={`ml-20 mt-9 bg-transparent rounded px-2 py-1 hover:bg-white hover:text-black transition ${
             darkMode ? "border-white" : "border-black"
           } border`}

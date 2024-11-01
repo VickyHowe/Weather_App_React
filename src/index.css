@@ -1,3 +1,9 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --background-color: white;
   --text-color: black;
@@ -22,7 +28,6 @@ body {
   --background-image: url('./assets/pexels-d-ng-nhan-324384-1529881.jpg');
   --forecast-card-background: #2c3e50; 
   --forecast-card-border: #34495e; 
-  --border:#ccc
 }
 
 .light-mode {
@@ -31,9 +36,7 @@ body {
   --background-image: url('./assets/pexels-couleur-29008111.jpg');
   --forecast-card-background: #5a7fa1;
   --forecast-card-border: black; 
-  --border:black;
 }
-
 
 #root {
   max-width: 1280px;
@@ -51,11 +54,6 @@ input {
   margin: 10px 0;
 }
 
-.light-mode, .dark-mode {
-  transition: background-color 0.3s ease, color 0.3s ease;
-
-}
-
 button {
   background-color: transparent;
   border: none;
@@ -68,14 +66,9 @@ button:hover {
   color: #f0a500; 
 }
 
-button svg {
-  vertical-align: middle;
-}
-
 nav {
   transition: background-color 0.3s, color 0.3s; 
 }
-
 
 .forecast-container {
   display: flex;               
@@ -106,6 +99,8 @@ nav {
     flex: 0 0 calc(100% - 10px);
   }
 }
+
+
 
 @tailwind base;
 @tailwind components;

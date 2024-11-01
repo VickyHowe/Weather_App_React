@@ -15,6 +15,7 @@ const DailyForecast = ({ dailyData, metric }) => {
       {Object.entries(dailyData)
         .slice(0, 5)
         .map(([date, entries]) => {
+          
           // Get high and low temps
           const highTemp = Math.max(
             ...entries.map((entry) => entry.main.temp_max)
