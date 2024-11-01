@@ -205,6 +205,6 @@ This project was a challenge to create a weather application that fetches data f
 
 - Implementing a more interactive and user-friendly interface
 - Adding more weather metrics and features
-- Improving the application's performance and optimization
-- Integrating the application with other APIs for more featuresenge to create a weather application that fetches data from the OpenWeatherMap API.
+- Adding pins to the map for large cities displaying current weather data
+- Integrating the application with other APIs for more features to a sliding graph that fetches data from the OpenWeatherMap API.
 
