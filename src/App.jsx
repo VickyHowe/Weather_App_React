@@ -9,6 +9,7 @@ import { useMap } from "react-leaflet/hooks";
 import Legend from "./components/Legend";
 import MapComponent from "./components/MapComponent";
 
+
 {
   /* Recenter map */
 }
@@ -71,6 +72,7 @@ function App() {
         fetchWeatherAndForecast={fetchWeatherAndForecast}
         currentTemperature={weatherData ? weatherData.main.temp : null}
         currentHumidity={weatherData ? weatherData.main.humidity : null}
+        currentPressure={weatherData ? weatherData.main.pressure  : null}
         weatherCondition={
           weatherData ? weatherData.weather[0].description : "Loading..."
         }
@@ -82,7 +84,7 @@ function App() {
         weatherData={weatherData}
       />
       </header>
-      <div className="mt-20 pb-10 pt-16 flex flex-container relative text-center justify-center overflow-auto">
+      <div className="mt-20 pb-10 pt-16 flex flex-container relative justify-leftnpm run dev overflow-auto">
         <h2 className=" text-4xl font-bold">5-Day Forecast</h2>
       </div>
 
@@ -92,7 +94,7 @@ function App() {
 
      {/* Display 5-day Forecast */}
       <DailyForecast dailyData={dailyForecast} metric={metric} />
-      <div p-10 mb-20>
+      <div className="p-10 mb-20">
 
         {/* Display Map */}
         <MapComponent

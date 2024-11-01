@@ -1,15 +1,7 @@
 import React from "react";
-import { Link } from "react-scroll";
 import { FaMoon, FaSun } from "react-icons/fa";
 import WeatherIcon from "./WeatherIcon";
 
-const NavLink = ({ to, children }) => (
-  <Link spy={true} smooth={true} to={to}>
-    <li className="transition border-b-2 border-slate-900 cursor-pointer">
-      {children}
-    </li>
-  </Link>
-);
 
 const Nav = ({
   cityname,
@@ -19,6 +11,7 @@ const Nav = ({
   currentTemperature,
   weatherCondition,
   currentHumidity,
+  currentPressure,
   toggleTheme,
   metric,
   darkMode,
@@ -90,7 +83,14 @@ const Nav = ({
                 : "Loading..."}
 
               {/* Humidity Display */}
-              <div className="align-center text-sm mt-7">
+              <div className="align-center text-sm mt-1">
+                {currentPressure !== null
+                  ? `Pressure: ${currentPressure} hPa`
+                  : "Loading..."}
+              </div>
+
+              {/* Wind Speed Display */}
+              <div className="align-center text-sm mt-1">
                 {currentHumidity !== null
                   ? `Humidity: ${currentHumidity}%`
                   : "Loading..."}
@@ -101,6 +101,7 @@ const Nav = ({
       </div>
 
       <div className="flex flex-1 items-start space-x-4 mt-5 lg:mt-0">
+        
         {/* Units Dropdown Selector */}
         <select
           value={metric}

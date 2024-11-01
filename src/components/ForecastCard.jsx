@@ -1,7 +1,7 @@
 import React from "react";
 import WeatherIcon from "./WeatherIcon";
 import { WiRaindrop } from "react-icons/wi";
-import { FaRegSnowflake } from "react-icons/fa";
+import { FaRegSnowflake, FaWind  } from "react-icons/fa";
 
 const ForecastCard = ({
   date,
@@ -11,6 +11,7 @@ const ForecastCard = ({
   totalSnowfall,
   weatherCondition,
   metric,
+  windSpeed,
 }) => {
   const [year, month, day] = date.split("-");
   const dateObject = new Date(Date.UTC(year, month - 1, day));
@@ -51,6 +52,13 @@ const ForecastCard = ({
               {`${totalSnowfall} cm`}
             </p>
           )}
+          <p>
+          <FaWind 
+                size={20}
+                className="inline-block ml-1 mr-1 pr-1"
+              />
+            {windSpeed} {metric === "metric" ? "m/s" : "mph"}
+          </p>
         </div>
       </div>
     </div>

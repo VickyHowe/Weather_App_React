@@ -47,6 +47,8 @@ const DailyForecast = ({ dailyData, metric }) => {
               );
             }, 0)
             .toFixed(2);
+            // Get Windspeed
+            const windSpeed = entries[0].wind.speed;
 
           const weatherDescription = entries[0].weather[0].description;
 
@@ -58,6 +60,7 @@ const DailyForecast = ({ dailyData, metric }) => {
               lowTemperature={lowTemp}
               totalPrecipitation={totalRain}
               totalSnowfall={totalSnow}
+              windSpeed={windSpeed}
               weatherCondition={weatherDescription}
               metric={metric}
             />
