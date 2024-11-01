@@ -2,7 +2,6 @@ import React from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
 import WeatherIcon from "./WeatherIcon";
 
-
 const Nav = ({
   cityname,
   setCityname,
@@ -25,15 +24,15 @@ const Nav = ({
 
   return (
     <nav
-      className={`absolute top-0 left-0 right-0 flex flex-col lg:flex-row justify-between items-start z-50  ${
-        darkMode ? "text-white" : "text-gray-900 px-10"
+      className={`top-0 left-0 right-0 flex flex-col lg:flex-row justify-between items-start z-50 overflow-x-auto  ${
+        darkMode ? "text-white" : "text-gray-900 px-2"
       }`}
     >
-      <div className="flex items-start flex-1 mt-10">
+      <div className="flex items-start mt-10">
         {/* City Search Bar */}
         <form
           onSubmit={handleGetWeather}
-          className="flex items-start flex-1 ml-10 "
+          className="flex items-start ml-4 lg:ml-10"
         >
           <input
             type="text"
@@ -59,7 +58,7 @@ const Nav = ({
       </div>
 
       {/* City Name and Weather Info */}
-      <div className="flex margin-left flex-1 text-center items-start">
+      <div className="flex margin-left text-center items-start">
         {cityname && (
           <span className="lg:text-2xl font-bold flex items-center justify-left text-center ml-1">
             <span className="mr-1 mt-3 items-start">
@@ -100,13 +99,12 @@ const Nav = ({
         )}
       </div>
 
-      <div className="flex flex-1 items-start space-x-4 mt-5 lg:mt-0">
-        
+      <div className="flex items-start space-x-4 mt-5 lg:mt-0">
         {/* Units Dropdown Selector */}
         <select
           value={metric}
-          onChange={(e) => setMetric(e.target.value)} 
-          className={`ml-20 mt-9 bg-transparent rounded px-2 py-1 hover:bg-white hover:text-black transition ${
+          onChange={(e) => setMetric(e.target.value)}
+          className={`ml-4 lg:ml-20 mt-9 bg-transparent rounded px-2 py-1 hover:bg-white hover:text-black transition ${
             darkMode ? "border-white" : "border-black"
           } border`}
         >
@@ -117,7 +115,7 @@ const Nav = ({
         {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
-          className={`mt-8 border rounded px-20 py-1 transition ${
+          className={`mt-8 border rounded px-2 py-1 transition ${
             darkMode ? "border-white" : "border-black"
           } hover:bg-white hover:text-black`}
         >

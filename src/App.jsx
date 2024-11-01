@@ -62,9 +62,8 @@ function App() {
     weatherData && weatherData.coord ? weatherData.coord.lon : -123.1193;
 
   return (
-        <div className={`h-screen ${darkMode ? "dark-mode" : "light-mode"} pt-10 `}>
-          <header className="flex-container  z-10 flex overflow-auto">
-            
+        <div className={`h-screen ${darkMode ? "dark-mode" : "light-mode"} flex flex-col `}>
+          <header>            
       {/* Display Nav Bar */}
       <Nav
         cityname={cityname}
@@ -84,19 +83,20 @@ function App() {
         weatherData={weatherData}
       />
       </header>
-      <div className="mt-20 pb-10 pt-16 flex flex-container relative justify-leftnpm run dev overflow-auto">
+      <div className="mt-5 pb-10 flex flex-container relative justify-left">
         <h2 className=" text-4xl font-bold">5-Day Forecast</h2>
       </div>
 
       {/* Display loading and error states */}
       {loading && <p>Loading forecast...</p>}
-      {error && <p>Error fetching forecast: {error.message}</p>}
+      {error && <p>Error Loading Forecast. Please Try Again.: {error.message}</p>}
 
      {/* Display 5-day Forecast */}
       <DailyForecast dailyData={dailyForecast} metric={metric} />
-      <div className="p-10 mb-20">
+      <div className="flex-grow">
 
         {/* Display Map */}
+        <div id="map">
         <MapComponent
           lat={lat}
           lon={lon}
@@ -104,13 +104,15 @@ function App() {
           setLayer={setLayer}
           API_KEY={API_KEY}
         />
+        </div>
       </div>
-      <div className="container-fluid">
-        <footer className="py-3 my-4">
-          <p className="text-center text-body-secondary">© 2024 Vicky Howe</p>
+      <footer className="flex justify-center relative  z-20">
+          <p className="font-bold">© 2024 Vicky Howe</p>
         </footer>
-      </div>
+
+
     </div>
+    
   );
 }
 

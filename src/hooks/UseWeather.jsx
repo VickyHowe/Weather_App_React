@@ -18,7 +18,7 @@ const useWeather = (API_KEY) => {
       const geoData = await geoResponse.json();
 
       if (!geoResponse.ok) {
-        throw new Error(geoData.message || "Failed to fetch coordinates");
+        throw new Error(geoData.message || "Failed to fetch coordinates, please verify input");
       }
 
       const { lat, lon } = geoData.coord;
@@ -31,7 +31,7 @@ const useWeather = (API_KEY) => {
 
       if (!forecastResponse.ok) {
         throw new Error(
-          forecastData.message || "Failed to fetch forecast data"
+          forecastData.message || "Please Enter a Valid Location"
         );
       }
 

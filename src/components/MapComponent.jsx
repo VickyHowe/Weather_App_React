@@ -44,15 +44,15 @@ const MapComponent = ({ lat, lon, layer, setLayer, API_KEY }) => {
   const tileUrl = getTileUrl(layer, API_KEY);
 
   return (
-    <div className="relative pb-20">
+    <div className="relative p-5">
       {/* Select Layer dropdown */}
-      <div className="absolute z-10 top-7 left-12">
+      <div className="absolute z-10 top-7 left-20">
         <select
           value={layer}
           onChange={(e) => setLayer(e.target.value)}
           className="bg-white p-2 rounded shadow text-black"
         >
-          <option value = "none">Select</option>
+          <option value = "none">Select Layer</option>
           <option value = "precipitation">Precipitation</option>
           <option value = "clouds">Clouds</option>
           <option value = "temperature">Temperature</option>
@@ -61,7 +61,7 @@ const MapComponent = ({ lat, lon, layer, setLayer, API_KEY }) => {
       </div>
 
       {/* Map Container */}
-      <MapContainer center={[lat, lon]} zoom={8} className="h-96 w-full relative z-0">
+      <MapContainer center={[lat, lon]} zoom={8} className="md:h-96 w-full relative z-0 overflow-y-auto ">
         <TileLayer
           url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution = {attribution}

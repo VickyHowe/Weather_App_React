@@ -29,7 +29,7 @@ const ForecastCard = ({
   const dayOfWeek = dayNames[dayIndex];
 
   return (
-    <div className="flex justify-between mt-2">
+    <div className="flex mt-2">
       <div className="forecast-card">
         <div className="p-5">
           <h2 className="text-3xl font-bold pb-2">{dayOfWeek}</h2>
