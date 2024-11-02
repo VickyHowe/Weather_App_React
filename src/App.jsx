@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useWeather from "./hooks/useWeather";
+import useWeather from "./hooks/UseWeather";
 import { groupByDay } from "./utils/groupByDay";
 import Nav from "./components/Nav";
 import DailyForecast from "./components/DailyForecast";
