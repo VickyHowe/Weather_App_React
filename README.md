@@ -6,6 +6,7 @@ This weather web application provides real-time weather metrics using the OpenWe
 
 The intuitive, visually engaging weather data idsplayed dynamically through metrics such as temperature, humidity, precipitation and wind speed serve as a functional, reliable application.
 
+Deployed currently on render at https://weather-app-react-6269.onrender.com Please note this is a free deploy and may take a minute to spinup, refresh to open.
 
 ### Features
 ---------------
